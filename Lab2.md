@@ -126,4 +126,74 @@ Z
         costR = Math.min(Y, (X+Z));
     3. Tính tổng tiền:
         totalCost = B * costB + R * costR;
+
+
+### **EIUCUBES**
+Xây kim tự tháp.
+- Có n viên gạch
+- Yêu cầu: tính xem xây được bao nhiêu tầng?
+- Biết số viên gạch cần cho mỗi tầng như sau:
+    - Layer 1: 1
+    - Layer 2: 1 + 2
+    - Layer 3: 1 + 2 + 3
+    - Layer 4: 1 + 2 + 3 + 4
+    - ...
+    - Layer k: 1 + 2 + 3 + ... + (k-1) + k
+=> công thức tính số gạch cần cho layer k:
+    số viên gạch cho layer k = số viên gạch cho layer (k-1) + k
+
+VD: k = 4
+k-1 = 3
+số viên gạch cho layer 3 = 1 + 2 + 3 = 6
+số viên gạch cho layer 4 = 6 + 4 = 10
+
+VD: n = 25
+- Xét layer 1:
+    - Số viên gạch cần: 1
+    - Số viên gạch đang có: 25 > 1 => đủ => xây layer 1
+    - Số viên gạch còn lại: 24
+- Xét layer 2:
+    - Số viên gạch cần: 1 + 2
+    - Số viên gạch đang có: 24 > 3 => đủ => xây layer 2
+    - Số viên gạch còn lại: 21
+- Xét layer 3:
+    - Số viên gạch cần: 6
+    - Số viên gạch đang có: 21 > 6 => đủ => xây layer 3
+    - Số viên gạch còn lại: 15
+- Xét layer 4:
+    - Số viên gạch cần: 10
+    - Số viên gạch đang có: 15 > 10 => đủ => xây layer 4
+    - Số viên gạch còn lại: 5
+- Xét layer 5:
+    - Số viên gạch cần: 10 + 5 = 15
+    - Số viên gạch đang có: 5 < 15 => không đủ cho layer 5 
+=> số layer xây được là: 4
+
+Tổng quát hóa:
+- Input:
+    n: số viên gạch ban đầu
+    left_bricks: số viên gạch còn lại
+        int left_bricks = n;
+    layer: tầng đang xét
+        int layer = 1;
+    needed_bricks: số gạch cần cho layer
+        int needed_bricks = 1;
+    built_layers: số tầng đã xây
+        int built_layers = 0;
+- Vòng lặp: 
+    while (left_bricks >= needed_bricks)
+        // Điều kiện thỏa mãn => cập nhật số tầng xây được
+        built_layers++;
+
+        //tính số viên gạch còn lại
+        left_bricks -= needed_bricks;
+
+        //cập nhật layer tiếp theo cần xét
+        layer++; 
+
+        //tính số viên gạch cần cho layer tiếp theo
+        needed_bricks = needed_bricks + layer;
+
+    Kết thúc vòng lặp.
+    
     
