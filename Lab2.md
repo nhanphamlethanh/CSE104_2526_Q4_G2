@@ -68,3 +68,62 @@ vòng lặp for:
     A[j] > min => bỏ qua
 Kết thúc.
 => có được maxDiff = 4
+
+
+
+
+### **EIUBIRTH**
+Mua quà. Có 2 loại quà:
+- Màu xanh: X đồng
+- Màu đỏ: Y đồng
+- Phí đổi: Z đồng
+Cần mua:
+- B món màu xanh
+- R món màu đỏ
+Yêu cầu: tính số tiền ít nhất có thể.
+
+VD:
+- 5 món màu xanh
+- 7 món màu đỏ
+- X = 2
+- Y = 6
+- Z = 3
+
+Ý tưởng:
+- Để mua được B món màu xanh:
+    - TH1: mua trực tiếp B món màu xanh
+        costB = B * X = 5 * 2 = 10
+    - TH2: mua B món màu đỏ và đổi thành màu xanh
+        costB = B * Y + B * Z = B * (Y + Z) = 5 * (6 + 3) = 45
+    => chọn phương án 1.
+- Để mua được R món đỏ:
+    - TH1: mua trực tiếp
+        costR = R * Y = 7 * 6 = 42
+    - TH2: mua R món màu xanh và đổi lại thành đỏ
+        costR = R * X + R * Z = R * (X + Z) = 7 * (2 + 3) = 35
+    => chọn phương án 2.
+
+=> Hướng dẫn:
+- Với mỗi loại quà, so sánh 2 trường hợp:
+    + Nếu mua trực tiếp: giá mỗi món là?
+    + Nếu mua màu kia và đổi lại: giá mỗi món là?
+- Cần tính tổng tiền ít nhất có thể để mua 2 loại quà.
+
+- Input:
+B 
+R
+X
+Y
+Z
+- Tính toán:
+    1. Tính giá tiền tối ưu nhất cho mỗi món màu xanh
+        - TH1: mua trực tiếp
+            costB = X
+        - Th2: mua đỏ và đổi lại
+            costB = Y + Z
+        costB = Math.min(X, (Y+Z));
+    2. Tính giá tiền tối ưu nhất cho mỗi món màu đỏ
+        costR = Math.min(Y, (X+Z));
+    3. Tính tổng tiền:
+        totalCost = B * costB + R * costR;
+    
