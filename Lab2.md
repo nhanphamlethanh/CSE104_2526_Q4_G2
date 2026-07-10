@@ -195,5 +195,83 @@ Tổng quát hóa:
         needed_bricks = needed_bricks + layer;
 
     Kết thúc vòng lặp.
-    
-    
+
+
+
+### **EIUCUBES2**
+- Có k loại gạch. Xây được tương ứng k kim tự tháp.
+- Biết số lượng gạch ở mỗi loại.
+- Tính chiều cao của mỗi tháp.
+
+Giả sử:
+- Xét loại gạch i
+- Số lượng gạch của loại i là n_i
+- Biết:
+    1 <= n_i <= 10^18
+
+ý tưởng: sử dụng binary search
+- low = 0
+- high = 2_000_000
+- mid => tương ứng với chiều cao của mỗi kim tự tháp.
+
+Tìm công thức tính số gạch cần cho 1 kim tự tháp có chiều cao là H.
+
+    - Công thức tính số gạch cần cho layer h:
+        bricks for layer h = 1 + 2 + 3 +... + (h-1) + h
+    => rút gọn công thức:
+        h*(h+1)/2
+
+    layer 1: 1
+    layer 2: 1 + 2
+    layer 3: 1 + 2 + 3
+    ...
+    layer h: h*(h+1)/2
+    => tổng số gạch cho toàn bộ kim tự tháp là?
+        - Gọi i là biến đếm layer. với i chạy từ 1 tới h
+$$totalBricks = \frac{1}{2} \sum_{i=1}^{h}(i*(i+1))$$ 
+
+$$A1 = \sum_{i=1}^{h}(i^2)$$ 
+$$A2 = \sum_{i=1}^{h}(i)$$ 
+
+=>
+
+A1 = h(h+1)(2h+1)/6
+
+A2 = (1+h)*h/2
+
+=>
+
+totalBricks = 1/2 * (A1 + A2)
+
+totalBricks = 1/2 * (h(h+1)(2h+1)/6 + (1+h)*h/2) 
+
+totalBricks = h(h+1)(h+2) / 6
+
+long height = 0;
+
+while (low <= high)
+    long mid = low + (high-low)/2;
+
+    // mid tương đương với chiều cao của kim tự tháp (h)
+    long h = mid;
+
+    long neededBricksforH = h(h+1)/2;
+
+    if (neededBricksforH / 3 <= n / (h+2))
+        height = mid;
+        low = mid + 1;
+    else 
+        high = mid - 1;
+
+Rã công thức totalBricks để tránh tràn số.
+    totalBricks = h(h+1)(h+2) / 6
+                = (h(h+1)/2) * ((h+2)/3)
+    => nhìn thấy: h(h+1)/2 => công thức tính số gạch cần cho layer thứ h.
+    => totalBricks = neededBricksforH * ((h+2)/3)
+    => phép so sánh totalBricks <= n trở thành:
+        neededBricksforH * ((h+2)/3) <= n
+        neededBricksforH / 3 <= n / (h+2)
+
+
+
+
