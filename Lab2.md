@@ -271,7 +271,3 @@ Rã công thức totalBricks để tránh tràn số.
     => phép so sánh totalBricks <= n trở thành:
         neededBricksforH * ((h+2)/3) <= n
         neededBricksforH / 3 <= n / (h+2)
-
-
-
-
