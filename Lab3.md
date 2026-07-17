@@ -226,3 +226,60 @@ for (int i=0; i<n; i++)
         long actual_pay = bill - bill/100*5;
         total_income += actual_pay;
     tương tự các level còn lại.
+
+
+
+### **EIMEMCARD**
+VD: n = 5
+item_1 =    500_000
+item_2 =  2_000_000
+item_3 =  6_000_000
+item_4 = 50_000_000
+item_5 =  3_000_000
+
+Xét lần lượt từng lần mua hàng.
+- Xét lần 1:
+    item_1 = 500_000
+    => discount = 0 (chưa được xét hạng member)
+    => sau khi thanh toán, khách hàng có được xét hạng? => không 
+- Xét lần 2:
+    item_2 =  2_000_000
+    => discount = 0
+    => sau khi thanh toán => xét hạng starter
+- Xét lần 3:
+    item_3 =  6_000_000
+    => discount = 6_000_000 / 100 * 2 = 120_000
+    => sau khi thanh toán, khách hàng có được nâng hạng? => không
+- Xét lần 4:
+    item_4 = 50_000_000
+    => discount = 50_000_000 *2% = 1_000_000
+    => sau khi thanh toán, xét nâng hạng: Diamond
+- Xét lần 5:
+    item_5 =  3_000_000
+    => discount = 3_000_000 * 5% = 150_000
+    => sau khi thanh toán, không xét nâng hạng.
+
+Hướng dẫn:
+int n = sc.nextInt();
+int rate = 0;
+long total_pay = 0;
+for (int i=0; i<n; i++)
+    long price = sc.nextLong();
+    long discount = price / 100 * rate;
+    System.out.print(discount + " ");
+
+    total_pay += price;
+
+    if (total_pay >= 200_000_000)
+        rate = 7;
+    else if (total_pay >= 50_000_000)
+        rate = 5;
+    else if (total_pay >= 20_000_000)
+        rate = 3;
+    else if (total_pay >= 1_000_000)
+        rate = 2;
+    
+   
+
+
+    
