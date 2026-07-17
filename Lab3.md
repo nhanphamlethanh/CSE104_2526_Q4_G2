@@ -279,7 +279,28 @@ for (int i=0; i<n; i++)
     else if (total_pay >= 1_000_000)
         rate = 2;
     
-   
+
+### **EITAX**
+Thuế thu nhập cá nhân.
+
+Hợp đồng: lương = N đồng => gross salary
+
+VD: N = 19_000_000
+
+Miễn giảm thu nhập cá nhân: 9_000_000
+=> Số tiền lương sẽ bị tính thuế?
+    taxable = N - 9_000_000 = 10_000_000
+
+Tính thuế:
+- Level 1:
+    tax = 5_000_000 * 5% = 250_000
+- Level 2:
+    tax = 5_000_000 * 10% = 500_000
+- Level 3: taxable = 10_000_000 => không bị xét thuế ở ngưỡng này
+
+=> total_tax = 750_000
+
+
 
 
     
