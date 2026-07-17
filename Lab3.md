@@ -132,4 +132,97 @@ for (int i=0; i<limit.length; i++)
 i=0:
     limit[i] = 2_000_000
     limit[i-1] => không tồn tại
-    => dùng biến previousLimit
+    => thay thế bằng biến previousLimit
+
+=> bài toán lũy tiến
+
+### **EIUCHRMS**
+- Input:
+    n: số hóa đơn
+    n integers: giá trị của n hóa đơn
+- Output:
+    tổng thu nhập của cửa hàng
+    => total_income = tổng giá trị các hóa đơn sau chiết khấu
+
+Các ngưỡng:
+- Level 1: <= 2_000_000
+    discount_rate = 3%
+- Level 2: <= 5_000_000
+    discount_rate = 4%
+- Level 3: <= 10_000_000
+    discount_rate = 5%
+- Level 4: <= 20_000_000
+    discount_rate = 6%
+- Level 5: <= 50_000_000
+    discount_rate = 7%
+- Level 6: <= 100_000_000
+    discount_rate = 8%
+- Level 7: <= 200_000_000
+    discount_rate = 9%
+- Level 8: > 200_000_000
+    discount_rate = 10%
+
+VD:
+n = 5
+bill_1 = 10_000
+bill_2 = 1_000_000
+bill_3 = 3_000_000
+bill_4 = 5_000_000
+bill_5 = 100_000_000
+
+Xét lần lượt từng hóa đơn:
+- Xét bill_1 = 10_000:
+    - Số % chiết khấu:
+        discount_rate = 3%
+    - Số tiền được chiết khấu:
+        discount_amount = 10_000 / 100 * 3 = 300
+    - Số tiền khách hàng cần phải trả:
+        actual_pay = 10_000 - 300 = 9_700
+- Xét bill_2 = 1_000_000:
+    - Số % chiết khấu:
+        discount_rate = 3%
+    - Số tiền được chiết khấu:
+        discount_amount = 1_000_000 / 100 * 3 = 30_000
+    - Số tiền khách hàng cần phải trả:
+        actual_pay = 1_000_000 - 30_000 = 970_000
+- Xét bill_3 = 3_000_000:
+    - Số % chiết khấu:
+        discount_rate = 4%
+    - Số tiền được chiết khấu:
+        discount_amount = 3_000_000 / 100 * 4 = 120_000
+    - Số tiền khách hàng cần phải trả:
+        actual_pay = 2_880_000
+- Xét bill_4 = 5_000_000:
+    - Số % chiết khấu:
+        discount_rate = 4%
+    - Số tiền được chiết khấu:
+        discount_amount = 5_000_000 / 100 * 4 = 200_000
+    - Số tiền khách hàng cần phải trả:
+        actual_pay = 4_800_000
+- Xét bill_5 = 100_000_000:
+    - Số % chiết khấu:
+        discount_rate = 8%
+    - Số tiền được chiết khấu:
+        discount_amount = 100_000_000 / 100 * 8 = 8_000_000
+    - Số tiền khách hàng cần phải trả:
+        actual_pay = 92_000_000
+
+=> total_income = 9_700 + 970_000 + 2_880_000 + 4_800_000 + 92_000_000
+
+=> Không phải bài toán lũy tiến
+
+Hướng dẫn: if-else
+
+long total_income = 0;
+for (int i=0; i<n; i++)
+    long bill = sc.nextLong();
+    if (bill <= 2_000_000)
+        long actual_pay = bill - bill/100*3;
+        total_income += actual_pay;
+    else if (bill <= 5_000_000)
+        long actual_pay = bill - bill/100*4;
+        total_income += actual_pay;
+    else if (bill <= 10_000_000)
+        long actual_pay = bill - bill/100*5;
+        total_income += actual_pay;
+    tương tự các level còn lại.
