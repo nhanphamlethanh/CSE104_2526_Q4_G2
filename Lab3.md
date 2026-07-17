@@ -261,11 +261,11 @@ Xét lần lượt từng lần mua hàng.
 
 Hướng dẫn:
 int n = sc.nextInt();
-int rate = 0;
-long total_pay = 0;
+long rate = 0;
+double total_pay = 0;
 for (int i=0; i<n; i++)
     long price = sc.nextLong();
-    long discount = price / 100 * rate;
+    double discount = (double) price / 100 * rate;
     System.out.print(discount + " ");
 
     total_pay += price;
